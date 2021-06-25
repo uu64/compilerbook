@@ -4,4 +4,4 @@ setup:
 
 .PHONY: sh
 sh:
-	docker run --rm -v $(CURDIR)/src:/work -it compilerbook
+	docker run --rm -v $(CURDIR)/src:/9cc -it compilerbook
