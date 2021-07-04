@@ -92,8 +92,8 @@ Token *tokenize(char *p) {
     return head.next;
 }
 
-/* 次のトークンが期待している記号のときにはトークンを1つ読み進めて真を返す。 */
-/* それ以外の場合には偽を返す。 */
+// 次のトークンが期待している記号のときにはトークンを1つ読み進めて真を返す。
+// それ以外の場合には偽を返す。
 bool consume(char op) {
     if (token->kind != TK_RESERVED || token->str[0] != op)
         return false;
@@ -101,16 +101,16 @@ bool consume(char op) {
     return true;
 }
 
-/* 次のトークンが期待している記号のときにはトークンを1つ読み進める。 */
-/* それ以外の場合にはエラーを報告する。 */
+// 次のトークンが期待している記号のときにはトークンを1つ読み進める。
+// それ以外の場合にはエラーを報告する。
 void expect(char op) {
     if (token->kind != TK_RESERVED || token->str[0] != op)
         error_at(token->str, "'%c'ではありません");
     token = token->next;
 }
 
-/* 次のトークンが数値の場合、トークンを1つ読み進めてその数値を返す。 */
-/* それ以外の場合にはエラーを報告する。 */
+// 次のトークンが数値の場合、トークンを1つ読み進めてその数値を返す。
+// それ以外の場合にはエラーを報告する。
 int expect_number() {
     if (token->kind != TK_NUM )
         error_at(token->str, "数ではありません");
@@ -240,21 +240,21 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    /* トークナイズする */
+    // トークナイズする
     user_input = argv[1];
     token = tokenize(user_input);
     Node *node = expr();
 
-    /* アセンブリの前半部分を出力 */
+    // アセンブリの前半部分を出力
     printf(".intel_syntax noprefix\n");
     printf(".globl main\n");
     printf("main:\n");
 
-    /* 抽象構文木を下りながらコード生成 */
+    // 抽象構文木を下りながらコード生成 
     gen(node);
 
-    /* スタックトップに式全体の値が残っているはずなので */
-    /* それをRAXにロードして関数からの返り値とする */
+    // スタックトップに式全体の値が残っているはずなので
+    // それをRAXにロードして関数からの返り値とする
     printf("  pop rax\n");
     printf("  ret\n");
     return 0;
