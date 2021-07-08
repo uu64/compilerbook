@@ -101,7 +101,7 @@ Node *primary();
 // codegen.c
 
 // スタックマシンの実装
-void gen(Node *node);
+void codegen(Node *node);
 
 
 // main.c
